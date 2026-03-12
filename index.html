@@ -3,210 +3,263 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>School Bulletin Board</title>
+  <title>Bulletin Board</title>
   <style>
-    :root {
-      --bg: #f6f1e8;
-      --panel: rgba(255, 255, 255, 0.85);
-      --text: #232323;
-      --muted: #666;
-      --accent: #4b7bec;
-      --accent-2: #2d98da;
-      --border: rgba(0,0,0,0.08);
-      --shadow: 0 10px 30px rgba(0,0,0,0.10);
-      --note-yellow: #fff1a8;
-      --note-pink: #ffd6e7;
-      --note-blue: #d9ecff;
-      --note-green: #dff7d6;
+    :root{
+      --bg1:#0f172a;
+      --bg2:#111827;
+      --bg3:#1e293b;
+      --panel:rgba(255,255,255,.08);
+      --panel-2:rgba(255,255,255,.12);
+      --border:rgba(255,255,255,.12);
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --accent:#7c3aed;
+      --accent-2:#a855f7;
+      --danger:#ef4444;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --note-yellow:#fde68a;
+      --note-pink:#f9a8d4;
+      --note-blue:#93c5fd;
+      --note-green:#86efac;
     }
 
     * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
+      width: 100%;
       height: 100%;
+      overflow: hidden;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      background: linear-gradient(180deg, #efe7da 0%, #f7f3eb 100%);
-      overflow: hidden;
-    }
-
-    .app {
-      height: 100%;
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 20px;
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
-      z-index: 20;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 20px;
-      line-height: 1.1;
-      font-weight: 800;
-    }
-
-    .brand p {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 10px;
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    input[type="text"],
-    textarea,
-    select {
-      border: 1px solid rgba(0,0,0,0.12);
-      border-radius: 12px;
-      background: white;
-      padding: 10px 12px;
-      font: inherit;
-      outline: none;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus,
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(75,123,236,0.12);
-    }
-
-    textarea {
-      resize: none;
-      width: 240px;
-      height: 74px;
-    }
-
-    input[type="file"] {
-      font: inherit;
-      max-width: 220px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 12px;
-      background: var(--accent);
-      color: white;
-      padding: 10px 14px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(75,123,236,0.28);
-      transition: transform 0.08s ease, opacity 0.2s ease, background 0.2s ease;
-    }
-
-    button:hover { opacity: 0.95; }
-    button:active { transform: translateY(1px); }
-    button.secondary {
-      background: #eef3ff;
-      color: #2850b8;
-      box-shadow: none;
-      border: 1px solid rgba(75,123,236,0.15);
+      background:
+        radial-gradient(circle at top left, #312e81 0%, transparent 28%),
+        radial-gradient(circle at top right, #4c1d95 0%, transparent 22%),
+        radial-gradient(circle at bottom left, #0f766e 0%, transparent 20%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 55%, var(--bg3));
     }
 
     .board-wrap {
       position: relative;
-      overflow: auto;
       width: 100%;
       height: 100%;
+      overflow: auto;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 20%),
-        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.14), transparent 16%),
-        linear-gradient(180deg, rgba(255,255,255,0.16), rgba(0,0,0,0.02)),
-        repeating-linear-gradient(
-          0deg,
-          rgba(0,0,0,0.015) 0px,
-          rgba(0,0,0,0.015) 1px,
-          transparent 1px,
-          transparent 42px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0,0,0,0.015) 0px,
-          rgba(0,0,0,0.015) 1px,
-          transparent 1px,
-          transparent 42px
-        ),
-        linear-gradient(180deg, #c89f6f 0%, #b98c58 100%);
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.05), transparent 18%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,.04), transparent 18%),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: auto, auto, 34px 34px, 34px 34px;
+      cursor: grab;
     }
 
     .board {
       position: relative;
-      min-width: 1800px;
-      min-height: 1200px;
+      min-width: 2200px;
+      min-height: 1400px;
     }
 
-    .item {
+    .floating-ui {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      gap: 10px;
+    }
+
+    .status {
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(15,23,42,.7);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .post-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 16px 22px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(124,58,237,.45);
+      transition: transform .12s ease, opacity .2s ease;
+    }
+
+    .post-btn:hover { opacity: .96; }
+    .post-btn:active { transform: translateY(1px) scale(.99); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      background: rgba(2,6,23,.55);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(560px, 100%);
+      background: rgba(15,23,42,.82);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .close-btn {
+      border: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: white;
+      background: rgba(124,58,237,.22);
+      border-color: rgba(168,85,247,.4);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    input[type="text"], textarea, select, input[type="file"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: white;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input[type="text"]::placeholder,
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,.08);
+      color: white;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+
+    .note, .file-card {
       position: absolute;
+      border-radius: 20px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.1);
+      overflow: hidden;
       user-select: none;
       touch-action: none;
-      border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.18);
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .item.dragging {
-      opacity: 0.96;
-      cursor: grabbing;
     }
 
     .note {
-      width: 260px;
-      min-height: 200px;
-      padding: 16px 16px 36px;
-      display: flex;
-      flex-direction: column;
+      width: 280px;
+      min-height: 210px;
+      padding: 18px 18px 48px;
+      color: #111827;
       cursor: grab;
     }
 
     .note::before {
       content: "";
       position: absolute;
-      top: 10px;
+      top: 12px;
       left: 50%;
-      transform: translateX(-50%) rotate(-2deg);
-      width: 52px;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 58px;
       height: 18px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 4px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-radius: 6px;
+      background: rgba(255,255,255,.45);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
     }
 
     .note.yellow { background: var(--note-yellow); }
@@ -216,171 +269,188 @@
 
     .note-title {
       margin-top: 12px;
-      font-weight: 800;
       font-size: 16px;
+      font-weight: 900;
       line-height: 1.2;
       white-space: pre-wrap;
-      word-wrap: break-word;
+      word-break: break-word;
     }
 
     .note-body {
       margin-top: 8px;
       font-size: 14px;
       line-height: 1.45;
-      color: #2c2c2c;
       white-space: pre-wrap;
-      word-wrap: break-word;
+      word-break: break-word;
     }
 
     .file-card {
-      width: 340px;
-      background: #fffdf8;
+      width: 360px;
+      background: rgba(255,255,255,.97);
+      color: #0f172a;
       cursor: grab;
-      display: flex;
-      flex-direction: column;
     }
 
-    .file-top {
+    .file-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.88);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      gap: 10px;
+      padding: 12px 14px;
+      background: rgba(15,23,42,.04);
+      border-bottom: 1px solid rgba(0,0,0,.06);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .file-name {
       overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .file-body {
-      background: #f6f6f6;
+      width: 100%;
       min-height: 220px;
-      max-height: 420px;
-      overflow: hidden;
+      max-height: 460px;
+      background: #f8fafc;
       display: grid;
       place-items: center;
+      overflow: hidden;
     }
 
     .file-body img {
       display: block;
       max-width: 100%;
-      max-height: 420px;
+      max-height: 460px;
       object-fit: contain;
       background: white;
     }
 
     .pdf-frame {
       width: 100%;
-      height: 420px;
+      height: 460px;
       border: 0;
       background: white;
     }
 
     .item-actions {
       position: absolute;
-      right: 8px;
-      bottom: 8px;
+      right: 10px;
+      bottom: 10px;
       display: flex;
-      gap: 6px;
-      z-index: 3;
+      gap: 8px;
     }
 
     .mini-btn {
       border: 0;
-      border-radius: 10px;
-      padding: 7px 9px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.92);
+      color: #111827;
+      padding: 8px 10px;
       font-size: 12px;
       font-weight: 800;
       cursor: pointer;
-      background: rgba(255,255,255,0.9);
-      color: #222;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 18px rgba(0,0,0,.15);
     }
 
     .mini-btn.danger {
-      background: #fff1f1;
-      color: #b42318;
+      background: #fee2e2;
+      color: #991b1b;
     }
 
-    .status {
-      font-size: 12px;
-      color: var(--muted);
-      padding-left: 6px;
-      min-width: 140px;
+    .hidden {
+      display: none !important;
     }
 
-    .hint {
-      position: absolute;
-      right: 16px;
-      bottom: 16px;
-      background: rgba(255,255,255,0.9);
+    .tip {
+      position: fixed;
+      left: 22px;
+      bottom: 22px;
+      z-index: 900;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(15,23,42,.7);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 12px;
+      backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
       font-size: 12px;
-      color: #444;
-      z-index: 5;
+      color: var(--muted);
     }
 
-    .hidden { display: none !important; }
-
-    @media (max-width: 1100px) {
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      .toolbar {
-        width: 100%;
-      }
-      textarea {
-        width: 100%;
-      }
-      .panel {
-        width: 100%;
-      }
+    @media (max-width: 700px) {
+      .tip { display: none; }
+      .status { max-width: 220px; }
+      .file-card { width: 320px; }
+      .note { width: 250px; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="brand">
-        <h1>School Bulletin Board</h1>
-        <p>Pin notes, images, and PDFs. Drag things around and layer them like a real board.</p>
+  <div id="boardWrap" class="board-wrap">
+    <div id="board" class="board"></div>
+  </div>
+
+  <div class="floating-ui">
+    <div id="status" class="status">Connecting…</div>
+    <button id="openPostBtn" class="post-btn">+ Post</button>
+  </div>
+
+  <div class="tip">Drag items to move them. Click one to bring it to front.</div>
+
+  <div id="modal" class="modal">
+    <div class="modal-card">
+      <div class="modal-top">
+        <h2 class="modal-title">Create Post</h2>
+        <button id="closeModalBtn" class="close-btn">×</button>
       </div>
 
-      <div class="toolbar">
-        <div class="panel">
-          <input id="titleInput" type="text" placeholder="Title (optional)" maxlength="80" />
-          <textarea id="noteInput" placeholder="Write a post-it note..."></textarea>
+      <div class="tabs">
+        <button id="tabNote" class="tab active">Post-it Note</button>
+        <button id="tabFile" class="tab">PNG / PDF</button>
+      </div>
+
+      <div id="noteForm">
+        <div class="field">
+          <label for="noteTitle">Title</label>
+          <input id="noteTitle" type="text" placeholder="Optional title" maxlength="80" />
+        </div>
+        <div class="field">
+          <label for="noteText">Message</label>
+          <textarea id="noteText" placeholder="Write something to pin..."></textarea>
+        </div>
+        <div class="field">
+          <label for="noteColor">Color</label>
           <select id="noteColor">
-            <option value="yellow">Yellow note</option>
-            <option value="pink">Pink note</option>
-            <option value="blue">Blue note</option>
-            <option value="green">Green note</option>
+            <option value="yellow">Yellow</option>
+            <option value="pink">Pink</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
           </select>
-          <button id="postNoteBtn">Post Note</button>
-        </div>
-
-        <div class="panel">
-          <input id="fileInput" type="file" accept=".png,.pdf,image/png,application/pdf" />
-          <button id="uploadBtn">Pin File</button>
-          <button id="centerViewBtn" class="secondary">Center View</button>
-          <div id="status" class="status">Connecting...</div>
         </div>
       </div>
-    </div>
 
-    <div id="boardWrap" class="board-wrap">
-      <div id="board" class="board"></div>
-      <div class="hint">Drag items to move them. Click one to bring it to the front.</div>
+      <div id="fileForm" class="hidden">
+        <div class="field">
+          <label for="fileInput">Choose PNG or PDF</label>
+          <input id="fileInput" type="file" accept=".png,.pdf,image/png,application/pdf" />
+        </div>
+        <div class="field">
+          <label for="fileTitle">Label</label>
+          <input id="fileTitle" type="text" placeholder="Optional label" maxlength="120" />
+        </div>
+        <div class="field">
+          <label>Note</label>
+          <div style="font-size:13px;color:#94a3b8;line-height:1.4;">
+            This Firestore-only version only supports small files because Firestore has a document size limit.
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="cancelBtn" class="btn secondary">Cancel</button>
+        <button id="submitBtn" class="btn primary">Post</button>
+      </div>
     </div>
   </div>
 
@@ -390,30 +460,21 @@
     import {
       getFirestore,
       collection,
-      doc,
       addDoc,
+      doc,
       updateDoc,
       deleteDoc,
-      onSnapshot,
       query,
       orderBy,
-      serverTimestamp,
-      increment
+      onSnapshot,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-    import {
-      getStorage,
-      ref,
-      uploadBytes,
-      getDownloadURL,
-      deleteObject
-    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
     import {
       getAuth,
       signInAnonymously,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBv7Ywm0EBI0evZrvboljZ9N-UfkhYjzss",
       authDomain: "board-425b3.firebaseapp.com",
@@ -428,51 +489,41 @@
     getAnalytics(app);
 
     const db = getFirestore(app);
-    const storage = getStorage(app);
     const auth = getAuth(app);
 
-    const board = document.getElementById("board");
     const boardWrap = document.getElementById("boardWrap");
-    const titleInput = document.getElementById("titleInput");
-    const noteInput = document.getElementById("noteInput");
-    const noteColor = document.getElementById("noteColor");
-    const postNoteBtn = document.getElementById("postNoteBtn");
-    const fileInput = document.getElementById("fileInput");
-    const uploadBtn = document.getElementById("uploadBtn");
+    const board = document.getElementById("board");
     const statusEl = document.getElementById("status");
-    const centerViewBtn = document.getElementById("centerViewBtn");
+
+    const modal = document.getElementById("modal");
+    const openPostBtn = document.getElementById("openPostBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const tabNote = document.getElementById("tabNote");
+    const tabFile = document.getElementById("tabFile");
+    const noteForm = document.getElementById("noteForm");
+    const fileForm = document.getElementById("fileForm");
+
+    const noteTitle = document.getElementById("noteTitle");
+    const noteText = document.getElementById("noteText");
+    const noteColor = document.getElementById("noteColor");
+
+    const fileInput = document.getElementById("fileInput");
+    const fileTitle = document.getElementById("fileTitle");
 
     const itemsRef = collection(db, "boardItems");
     const itemsMap = new Map();
 
     let currentUid = null;
     let highestZ = 1;
-    let dragState = null;
+    let mode = "note";
+    let drag = null;
 
     function setStatus(text) {
       statusEl.textContent = text;
     }
-
-    function clamp(n, min, max) {
-      return Math.max(min, Math.min(max, n));
-    }
-
-    function randomStartPosition() {
-      const wrapRect = boardWrap.getBoundingClientRect();
-      const left = boardWrap.scrollLeft + wrapRect.width / 2 - 150 + (Math.random() * 120 - 60);
-      const top = boardWrap.scrollTop + wrapRect.height / 2 - 100 + (Math.random() * 120 - 60);
-      return {
-        x: Math.round(clamp(left, 20, 1500)),
-        y: Math.round(clamp(top, 20, 1000))
-      };
-    }
-
-    function centerBoardView() {
-      boardWrap.scrollLeft = (board.scrollWidth - boardWrap.clientWidth) / 2;
-      boardWrap.scrollTop = (board.scrollHeight - boardWrap.clientHeight) / 2;
-    }
-
-    centerViewBtn.addEventListener("click", centerBoardView);
 
     function escapeHtml(str = "") {
       return str
@@ -483,12 +534,59 @@
         .replaceAll("'", "&#039;");
     }
 
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function openModal() {
+      modal.classList.add("show");
+    }
+
+    function closeModal() {
+      modal.classList.remove("show");
+    }
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      const noteActive = mode === "note";
+      tabNote.classList.toggle("active", noteActive);
+      tabFile.classList.toggle("active", !noteActive);
+      noteForm.classList.toggle("hidden", !noteActive);
+      fileForm.classList.toggle("hidden", noteActive);
+    }
+
+    function randomStartPosition() {
+      const x = boardWrap.scrollLeft + boardWrap.clientWidth / 2 - 140 + (Math.random() * 140 - 70);
+      const y = boardWrap.scrollTop + boardWrap.clientHeight / 2 - 100 + (Math.random() * 140 - 70);
+      return {
+        x: Math.round(clamp(x, 20, 1900)),
+        y: Math.round(clamp(y, 20, 1200))
+      };
+    }
+
+    function resetForm() {
+      noteTitle.value = "";
+      noteText.value = "";
+      noteColor.value = "yellow";
+      fileInput.value = "";
+      fileTitle.value = "";
+      setMode("note");
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
     async function bringToFront(id, currentZ = 1) {
       if (currentZ >= highestZ) return;
       highestZ += 1;
-      const refDoc = doc(db, "boardItems", id);
       try {
-        await updateDoc(refDoc, {
+        await updateDoc(doc(db, "boardItems", id), {
           z: highestZ,
           updatedAt: serverTimestamp()
         });
@@ -497,75 +595,21 @@
       }
     }
 
-    function makeNoteElement(id, data) {
-      const el = document.createElement("div");
-      el.className = `item note ${data.color || "yellow"}`;
-      el.dataset.id = id;
-      el.style.left = `${data.x || 40}px`;
-      el.style.top = `${data.y || 40}px`;
-      el.style.zIndex = data.z || 1;
-
-      el.innerHTML = `
-        <div class="note-title">${escapeHtml(data.title || "")}</div>
-        <div class="note-body">${escapeHtml(data.text || "")}</div>
-        <div class="item-actions">
-          <button class="mini-btn front-btn" title="Bring to front">Front</button>
-          <button class="mini-btn danger delete-btn" title="Delete">Delete</button>
-        </div>
-      `;
-
-      attachSharedItemEvents(el, id, data);
-      return el;
-    }
-
-    function makeFileElement(id, data) {
-      const el = document.createElement("div");
-      el.className = "item file-card";
-      el.dataset.id = id;
-      el.style.left = `${data.x || 60}px`;
-      el.style.top = `${data.y || 60}px`;
-      el.style.zIndex = data.z || 1;
-
-      const isPdf = data.fileType === "pdf";
-      const body = isPdf
-        ? `<iframe class="pdf-frame" src="${data.fileUrl}#toolbar=0&navpanes=0&scrollbar=1"></iframe>`
-        : `<img src="${data.fileUrl}" alt="${escapeHtml(data.fileName || "Pinned image")}" />`;
-
-      el.innerHTML = `
-        <div class="file-top">
-          <div class="file-name">${escapeHtml(data.fileName || (isPdf ? "Document.pdf" : "Image.png"))}</div>
-          <div>${isPdf ? "PDF" : "PNG"}</div>
-        </div>
-        <div class="file-body">${body}</div>
-        <div class="item-actions">
-          <button class="mini-btn front-btn" title="Bring to front">Front</button>
-          <a class="mini-btn" href="${data.fileUrl}" target="_blank" rel="noopener">Open</a>
-          <button class="mini-btn danger delete-btn" title="Delete">Delete</button>
-        </div>
-      `;
-
-      attachSharedItemEvents(el, id, data);
-      return el;
-    }
-
-    function attachSharedItemEvents(el, id, data) {
+    function attachItemEvents(el, id, data) {
       el.addEventListener("pointerdown", async (e) => {
         if (e.target.closest(".item-actions")) return;
 
         await bringToFront(id, data.z || 1);
 
-        const rect = board.getBoundingClientRect();
-        dragState = {
+        drag = {
           id,
           el,
           startX: e.clientX,
           startY: e.clientY,
           originX: parseFloat(el.style.left) || 0,
-          originY: parseFloat(el.style.top) || 0,
-          boardRect: rect
+          originY: parseFloat(el.style.top) || 0
         };
 
-        el.classList.add("dragging");
         el.setPointerCapture(e.pointerId);
       });
 
@@ -580,14 +624,8 @@
 
       el.querySelector(".delete-btn")?.addEventListener("click", async (e) => {
         e.stopPropagation();
-        const ok = confirm("Delete this pinned item?");
-        if (!ok) return;
-
+        if (!confirm("Delete this item?")) return;
         try {
-          if (data.filePath) {
-            const fileRef = ref(storage, data.filePath);
-            await deleteObject(fileRef).catch(() => {});
-          }
           await deleteDoc(doc(db, "boardItems", id));
         } catch (err) {
           console.error(err);
@@ -596,27 +634,195 @@
       });
     }
 
+    function makeNoteElement(id, data) {
+      const el = document.createElement("div");
+      el.className = `note ${data.color || "yellow"}`;
+      el.dataset.id = id;
+      el.style.left = `${data.x || 40}px`;
+      el.style.top = `${data.y || 40}px`;
+      el.style.zIndex = data.z || 1;
+
+      el.innerHTML = `
+        <div class="note-title">${escapeHtml(data.title || "")}</div>
+        <div class="note-body">${escapeHtml(data.text || "")}</div>
+        <div class="item-actions">
+          <button class="mini-btn front-btn">Front</button>
+          <button class="mini-btn danger delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachItemEvents(el, id, data);
+      return el;
+    }
+
+    function makeFileElement(id, data) {
+      const el = document.createElement("div");
+      el.className = "file-card";
+      el.dataset.id = id;
+      el.style.left = `${data.x || 60}px`;
+      el.style.top = `${data.y || 60}px`;
+      el.style.zIndex = data.z || 1;
+
+      const isPdf = data.fileType === "pdf";
+      const label = data.label || data.fileName || (isPdf ? "PDF" : "PNG");
+
+      el.innerHTML = `
+        <div class="file-head">
+          <div class="file-name">${escapeHtml(label)}</div>
+          <div>${isPdf ? "PDF" : "PNG"}</div>
+        </div>
+        <div class="file-body">
+          ${
+            isPdf
+              ? `<iframe class="pdf-frame" src="${data.fileData}#toolbar=0&navpanes=0"></iframe>`
+              : `<img src="${data.fileData}" alt="${escapeHtml(label)}" />`
+          }
+        </div>
+        <div class="item-actions">
+          <button class="mini-btn front-btn">Front</button>
+          <a class="mini-btn" href="${data.fileData}" target="_blank" rel="noopener">Open</a>
+          <button class="mini-btn danger delete-btn">Delete</button>
+        </div>
+      `;
+
+      attachItemEvents(el, id, data);
+      return el;
+    }
+
+    function renderItem(id, data) {
+      let el = itemsMap.get(id);
+      const newEl = data.type === "note" ? makeNoteElement(id, data) : makeFileElement(id, data);
+
+      if (el) {
+        board.replaceChild(newEl, el);
+      } else {
+        board.appendChild(newEl);
+      }
+
+      itemsMap.set(id, newEl);
+      highestZ = Math.max(highestZ, data.z || 1);
+    }
+
+    function removeItem(id) {
+      const el = itemsMap.get(id);
+      if (el) el.remove();
+      itemsMap.delete(id);
+    }
+
+    async function createNote() {
+      const title = noteTitle.value.trim();
+      const text = noteText.value.trim();
+      const color = noteColor.value;
+
+      if (!title && !text) {
+        alert("Write something first.");
+        return;
+      }
+
+      const pos = randomStartPosition();
+      highestZ += 1;
+
+      await addDoc(itemsRef, {
+        type: "note",
+        title,
+        text,
+        color,
+        x: pos.x,
+        y: pos.y,
+        z: highestZ,
+        createdBy: currentUid,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+    }
+
+    async function createFileItem() {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Choose a PNG or PDF.");
+        return;
+      }
+
+      const isPng = file.type === "image/png" || file.name.toLowerCase().endsWith(".png");
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+
+      if (!isPng && !isPdf) {
+        alert("Only PNG and PDF are allowed.");
+        return;
+      }
+
+      if (file.size > 700 * 1024) {
+        alert("This Firestore-only version only supports small files. Keep it under about 700 KB.");
+        return;
+      }
+
+      const dataUrl = await fileToDataUrl(file);
+
+      if (typeof dataUrl !== "string" || dataUrl.length > 900000) {
+        alert("That file is too large to store safely in Firestore.");
+        return;
+      }
+
+      const pos = randomStartPosition();
+      highestZ += 1;
+
+      await addDoc(itemsRef, {
+        type: "file",
+        label: fileTitle.value.trim(),
+        fileName: file.name,
+        fileType: isPdf ? "pdf" : "png",
+        fileData: dataUrl,
+        x: pos.x,
+        y: pos.y,
+        z: highestZ,
+        createdBy: currentUid,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+    }
+
+    async function submitPost() {
+      submitBtn.disabled = true;
+      setStatus("Posting...");
+
+      try {
+        if (mode === "note") {
+          await createNote();
+        } else {
+          await createFileItem();
+        }
+
+        closeModal();
+        resetForm();
+        setStatus("Live");
+      } catch (err) {
+        console.error(err);
+        alert("Could not create post.");
+        setStatus("Error");
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+
     window.addEventListener("pointermove", (e) => {
-      if (!dragState) return;
-      const dx = e.clientX - dragState.startX;
-      const dy = e.clientY - dragState.startY;
+      if (!drag) return;
 
-      const x = clamp(Math.round(dragState.originX + dx), 0, board.scrollWidth - 60);
-      const y = clamp(Math.round(dragState.originY + dy), 0, board.scrollHeight - 60);
+      const dx = e.clientX - drag.startX;
+      const dy = e.clientY - drag.startY;
+      const x = clamp(Math.round(drag.originX + dx), 0, board.scrollWidth - 80);
+      const y = clamp(Math.round(drag.originY + dy), 0, board.scrollHeight - 80);
 
-      dragState.el.style.left = `${x}px`;
-      dragState.el.style.top = `${y}px`;
+      drag.el.style.left = `${x}px`;
+      drag.el.style.top = `${y}px`;
     });
 
     window.addEventListener("pointerup", async () => {
-      if (!dragState) return;
+      if (!drag) return;
 
-      const { id, el } = dragState;
+      const { id, el } = drag;
       const x = parseInt(el.style.left, 10) || 0;
       const y = parseInt(el.style.top, 10) || 0;
-
-      el.classList.remove("dragging");
-      dragState = null;
+      drag = null;
 
       try {
         await updateDoc(doc(db, "boardItems", id), {
@@ -629,173 +835,38 @@
       }
     });
 
-    async function createNote() {
-      const text = noteInput.value.trim();
-      const title = titleInput.value.trim();
-      const color = noteColor.value;
+    openPostBtn.addEventListener("click", openModal);
+    closeModalBtn.addEventListener("click", closeModal);
+    cancelBtn.addEventListener("click", closeModal);
+    submitBtn.addEventListener("click", submitPost);
 
-      if (!text && !title) {
-        alert("Write something first.");
-        return;
-      }
-
-      const pos = randomStartPosition();
-      highestZ += 1;
-
-      postNoteBtn.disabled = true;
-      setStatus("Posting note...");
-
-      try {
-        await addDoc(itemsRef, {
-          type: "note",
-          title,
-          text,
-          color,
-          x: pos.x,
-          y: pos.y,
-          z: highestZ,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-          createdBy: currentUid
-        });
-
-        noteInput.value = "";
-        titleInput.value = "";
-        setStatus("Note posted.");
-      } catch (err) {
-        console.error(err);
-        alert("Could not post note.");
-        setStatus("Error posting note.");
-      } finally {
-        postNoteBtn.disabled = false;
-      }
-    }
-
-    async function uploadFileItem() {
-      const file = fileInput.files[0];
-      if (!file) {
-        alert("Choose a PNG or PDF first.");
-        return;
-      }
-
-      const isPng = file.type === "image/png" || file.name.toLowerCase().endsWith(".png");
-      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
-
-      if (!isPng && !isPdf) {
-        alert("Only PNG and PDF files are allowed.");
-        return;
-      }
-
-      const pos = randomStartPosition();
-      highestZ += 1;
-
-      uploadBtn.disabled = true;
-      setStatus("Uploading file...");
-
-      try {
-        const ext = isPdf ? "pdf" : "png";
-        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        const path = `boardUploads/${Date.now()}_${currentUid}_${safeName}`;
-        const fileRef = ref(storage, path);
-
-        await uploadBytes(fileRef, file, {
-          contentType: isPdf ? "application/pdf" : "image/png"
-        });
-
-        const url = await getDownloadURL(fileRef);
-
-        await addDoc(itemsRef, {
-          type: "file",
-          fileType: ext,
-          fileName: file.name,
-          fileUrl: url,
-          filePath: path,
-          x: pos.x,
-          y: pos.y,
-          z: highestZ,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-          createdBy: currentUid
-        });
-
-        fileInput.value = "";
-        setStatus("File pinned.");
-      } catch (err) {
-        console.error(err);
-        alert("Could not upload file.");
-        setStatus("Upload failed.");
-      } finally {
-        uploadBtn.disabled = false;
-      }
-    }
-
-    postNoteBtn.addEventListener("click", createNote);
-    uploadBtn.addEventListener("click", uploadFileItem);
-
-    titleInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        createNote();
-      }
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
     });
 
-    noteInput.addEventListener("keydown", (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-        e.preventDefault();
-        createNote();
-      }
-    });
-
-    function renderItem(id, data) {
-      let el = itemsMap.get(id);
-
-      if (!el) {
-        el = data.type === "note"
-          ? makeNoteElement(id, data)
-          : makeFileElement(id, data);
-
-        itemsMap.set(id, el);
-        board.appendChild(el);
-      } else {
-        const replacement = data.type === "note"
-          ? makeNoteElement(id, data)
-          : makeFileElement(id, data);
-
-        board.replaceChild(replacement, el);
-        itemsMap.set(id, replacement);
-        el = replacement;
-      }
-
-      highestZ = Math.max(highestZ, data.z || 1);
-    }
-
-    function removeItem(id) {
-      const el = itemsMap.get(id);
-      if (el) {
-        el.remove();
-        itemsMap.delete(id);
-      }
-    }
+    tabNote.addEventListener("click", () => setMode("note"));
+    tabFile.addEventListener("click", () => setMode("file"));
 
     async function boot() {
       setStatus("Signing in...");
+
       try {
         await signInAnonymously(auth);
       } catch (err) {
         console.error(err);
-        setStatus("Anonymous auth failed.");
-        alert("Enable Anonymous Authentication in Firebase Auth.");
+        setStatus("Auth failed");
+        alert("Enable Anonymous Authentication in Firebase.");
         return;
       }
 
       onAuthStateChanged(auth, (user) => {
         if (!user) return;
         currentUid = user.uid;
-        setStatus("Live board connected.");
+        setStatus("Live");
 
         const q = query(itemsRef, orderBy("z", "asc"));
-        onSnapshot(q, (snapshot) => {
-          snapshot.docChanges().forEach((change) => {
+        onSnapshot(q, (snap) => {
+          snap.docChanges().forEach((change) => {
             const id = change.doc.id;
             const data = change.doc.data();
 
@@ -807,10 +878,11 @@
           });
         }, (err) => {
           console.error(err);
-          setStatus("Live sync error.");
+          setStatus("Sync error");
         });
 
-        centerBoardView();
+        boardWrap.scrollLeft = (board.scrollWidth - boardWrap.clientWidth) / 2;
+        boardWrap.scrollTop = (board.scrollHeight - boardWrap.clientHeight) / 2;
       });
     }
 
